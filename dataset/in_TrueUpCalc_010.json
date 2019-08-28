@@ -1,0 +1,316 @@
+{
+	"name": "in_TrueUpCalc_010",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SzAzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "sm_TrueUpCalc_010.txt",
+				"container": "sz-blob1"
+			},
+			"columnDelimiter": "\t",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "ValDate",
+				"type": "String"
+			},
+			{
+				"name": "UpdateGroup",
+				"type": "String"
+			},
+			{
+				"name": "GDSKey",
+				"type": "String"
+			},
+			{
+				"name": "CompareTo",
+				"type": "String"
+			},
+			{
+				"name": "Source1",
+				"type": "String"
+			},
+			{
+				"name": "Source2",
+				"type": "String"
+			},
+			{
+				"name": "Source3",
+				"type": "String"
+			},
+			{
+				"name": "Source4",
+				"type": "String"
+			},
+			{
+				"name": "Application",
+				"type": "String"
+			},
+			{
+				"name": "GroupID",
+				"type": "String"
+			},
+			{
+				"name": "Entity",
+				"type": "String"
+			},
+			{
+				"name": "FundGroup",
+				"type": "String"
+			},
+			{
+				"name": "Fund",
+				"type": "String"
+			},
+			{
+				"name": "SubFund",
+				"type": "String"
+			},
+			{
+				"name": "FundType",
+				"type": "String"
+			},
+			{
+				"name": "Basis",
+				"type": "String"
+			},
+			{
+				"name": "StressGroup",
+				"type": "String"
+			},
+			{
+				"name": "StressName",
+				"type": "String"
+			},
+			{
+				"name": "StressID",
+				"type": "String"
+			},
+			{
+				"name": "ReinsLayer",
+				"type": "String"
+			},
+			{
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "ProductGroup1",
+				"type": "String"
+			},
+			{
+				"name": "ProductGroup2",
+				"type": "String"
+			},
+			{
+				"name": "PlanEnhance",
+				"type": "String"
+			},
+			{
+				"name": "RepName1",
+				"type": "String"
+			},
+			{
+				"name": "RepName2",
+				"type": "String"
+			},
+			{
+				"name": "RepName3",
+				"type": "String"
+			},
+			{
+				"name": "ItemName1",
+				"type": "String"
+			},
+			{
+				"name": "ItemName2",
+				"type": "String"
+			},
+			{
+				"name": "ItemName3",
+				"type": "String"
+			},
+			{
+				"name": "ItemName4",
+				"type": "String"
+			},
+			{
+				"name": "ItemName5",
+				"type": "String"
+			},
+			{
+				"name": "ItemName6",
+				"type": "String"
+			},
+			{
+				"name": "ItemName7",
+				"type": "String"
+			},
+			{
+				"name": "ItemName8",
+				"type": "String"
+			},
+			{
+				"name": "ItemName9",
+				"type": "String"
+			},
+			{
+				"name": "ItemName10",
+				"type": "String"
+			},
+			{
+				"name": "ItemOrd1",
+				"type": "String"
+			},
+			{
+				"name": "ItemOrd2",
+				"type": "String"
+			},
+			{
+				"name": "ItemOrd3",
+				"type": "String"
+			},
+			{
+				"name": "ItemOrd4",
+				"type": "String"
+			},
+			{
+				"name": "ItemOrd5",
+				"type": "String"
+			},
+			{
+				"name": "ItemOrd6",
+				"type": "String"
+			},
+			{
+				"name": "ItemOrd7",
+				"type": "String"
+			},
+			{
+				"name": "ItemOrd8",
+				"type": "String"
+			},
+			{
+				"name": "ItemOrd9",
+				"type": "String"
+			},
+			{
+				"name": "ItemOrd10",
+				"type": "String"
+			},
+			{
+				"name": "ItemDesc1",
+				"type": "String"
+			},
+			{
+				"name": "ItemDesc2",
+				"type": "String"
+			},
+			{
+				"name": "ItemDesc3",
+				"type": "String"
+			},
+			{
+				"name": "ItemDesc4",
+				"type": "String"
+			},
+			{
+				"name": "ItemDesc5",
+				"type": "String"
+			},
+			{
+				"name": "ItemDesc6",
+				"type": "String"
+			},
+			{
+				"name": "ItemDesc7",
+				"type": "String"
+			},
+			{
+				"name": "ItemDesc8",
+				"type": "String"
+			},
+			{
+				"name": "ItemDesc9",
+				"type": "String"
+			},
+			{
+				"name": "ItemDesc10",
+				"type": "String"
+			},
+			{
+				"name": "ValueN01",
+				"type": "String"
+			},
+			{
+				"name": "ValueN02",
+				"type": "String"
+			},
+			{
+				"name": "ValueN03",
+				"type": "String"
+			},
+			{
+				"name": "ValueN04",
+				"type": "String"
+			},
+			{
+				"name": "ValueN05",
+				"type": "String"
+			},
+			{
+				"name": "ValueN06",
+				"type": "String"
+			},
+			{
+				"name": "ValueN07",
+				"type": "String"
+			},
+			{
+				"name": "ValueN08",
+				"type": "String"
+			},
+			{
+				"name": "ValueN09",
+				"type": "String"
+			},
+			{
+				"name": "ValueN10",
+				"type": "String"
+			},
+			{
+				"name": "ValueS01",
+				"type": "String"
+			},
+			{
+				"name": "ValueS02",
+				"type": "String"
+			},
+			{
+				"name": "ValueS03",
+				"type": "String"
+			},
+			{
+				"name": "ValueS04",
+				"type": "String"
+			},
+			{
+				"name": "ValueS05",
+				"type": "String"
+			},
+			{
+				"name": "Residual",
+				"type": "String"
+			}
+		]
+	}
+}
