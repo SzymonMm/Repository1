@@ -15,7 +15,7 @@
 			],
 			"transformations": [
 				{
-					"name": "Join1"
+					"name": "Join2"
 				},
 				{
 					"name": "ConditionalSplit1"
