@@ -5,12 +5,16 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"dataset": {
+						"referenceName": "in_TrueUpCalc_010",
+						"type": "DatasetReference"
+					},
 					"name": "source1"
 				}
 			],
 			"sinks": [],
 			"transformations": [],
-			"script": "\n\nsource(output(\n\t\t\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> source1"
+			"script": "\n\nsource(output(\n\t\tValDate as string,\n\t\tUpdateGroup as string,\n\t\tGDSKey as string,\n\t\tCompareTo as string,\n\t\tSource1 as string,\n\t\tSource2 as string,\n\t\tSource3 as string,\n\t\tSource4 as string,\n\t\tApplication as string,\n\t\tGroupID as string,\n\t\tEntity as string,\n\t\tFundGroup as string,\n\t\tFund as string,\n\t\tSubFund as string,\n\t\tFundType as string,\n\t\tBasis as string,\n\t\tStressGroup as string,\n\t\tStressName as string,\n\t\tStressID as string,\n\t\tReinsLayer as string,\n\t\tCountry as string,\n\t\tProductGroup1 as string,\n\t\tProductGroup2 as string,\n\t\tPlanEnhance as string,\n\t\tRepName1 as string,\n\t\tRepName2 as string,\n\t\tRepName3 as string,\n\t\tItemName1 as string,\n\t\tItemName2 as string,\n\t\tItemName3 as string,\n\t\tItemName4 as string,\n\t\tItemName5 as string,\n\t\tItemName6 as string,\n\t\tItemName7 as string,\n\t\tItemName8 as string,\n\t\tItemName9 as string,\n\t\tItemName10 as string,\n\t\tItemOrd1 as integer,\n\t\tItemOrd2 as integer,\n\t\tItemOrd3 as integer,\n\t\tItemOrd4 as integer,\n\t\tItemOrd5 as integer,\n\t\tItemOrd6 as integer,\n\t\tItemOrd7 as integer,\n\t\tItemOrd8 as integer,\n\t\tItemOrd9 as integer,\n\t\tItemOrd10 as integer,\n\t\tItemDesc1 as string,\n\t\tItemDesc2 as string,\n\t\tItemDesc3 as string,\n\t\tItemDesc4 as string,\n\t\tItemDesc5 as string,\n\t\tItemDesc6 as string,\n\t\tItemDesc7 as string,\n\t\tItemDesc8 as string,\n\t\tItemDesc9 as string,\n\t\tItemDesc10 as string,\n\t\tValueN01 as double,\n\t\tValueN02 as double,\n\t\tValueN03 as double,\n\t\tValueN04 as double,\n\t\tValueN05 as double,\n\t\tValueN06 as double,\n\t\tValueN07 as double,\n\t\tValueN08 as double,\n\t\tValueN09 as double,\n\t\tValueN10 as double,\n\t\tValueS01 as string,\n\t\tValueS02 as string,\n\t\tValueS03 as string,\n\t\tValueS04 as string,\n\t\tValueS05 as string,\n\t\tResidual as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true,\n\tinferDriftedColumnTypes: true) ~> source1"
 		}
 	}
 }
