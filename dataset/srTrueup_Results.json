@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "sink_sz1",
 				"container": "sz-container-out1"
 			},
 			"columnDelimiter": "\t",
