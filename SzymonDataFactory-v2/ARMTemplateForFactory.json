@@ -1,0 +1,477 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory Name",
+			"defaultValue": "SzymonDataFactory-v2"
+		},
+		"SzAzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SzAzureBlobStorage1'"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "dataflow1",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow1",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"inTrueUpCalc010": {},
+									"sink1": {}
+								}
+							},
+							"staging": {}
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/in_TrueUpCalc_010')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SzAzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Param_DataSet1": {
+						"type": "string",
+						"defaultValue": "Param_DataSet1"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "sm_TrueUpCalc_010.txt",
+						"container": "sz-blob1"
+					},
+					"columnDelimiter": "\t",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "ValDate",
+						"type": "String"
+					},
+					{
+						"name": "UpdateGroup",
+						"type": "String"
+					},
+					{
+						"name": "GDSKey",
+						"type": "String"
+					},
+					{
+						"name": "CompareTo",
+						"type": "String"
+					},
+					{
+						"name": "Source1",
+						"type": "String"
+					},
+					{
+						"name": "Source2",
+						"type": "String"
+					},
+					{
+						"name": "Source3",
+						"type": "String"
+					},
+					{
+						"name": "Source4",
+						"type": "String"
+					},
+					{
+						"name": "Application",
+						"type": "String"
+					},
+					{
+						"name": "GroupID",
+						"type": "String"
+					},
+					{
+						"name": "Entity",
+						"type": "String"
+					},
+					{
+						"name": "FundGroup",
+						"type": "String"
+					},
+					{
+						"name": "Fund",
+						"type": "String"
+					},
+					{
+						"name": "SubFund",
+						"type": "String"
+					},
+					{
+						"name": "FundType",
+						"type": "String"
+					},
+					{
+						"name": "Basis",
+						"type": "String"
+					},
+					{
+						"name": "StressGroup",
+						"type": "String"
+					},
+					{
+						"name": "StressName",
+						"type": "String"
+					},
+					{
+						"name": "StressID",
+						"type": "String"
+					},
+					{
+						"name": "ReinsLayer",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "ProductGroup1",
+						"type": "String"
+					},
+					{
+						"name": "ProductGroup2",
+						"type": "String"
+					},
+					{
+						"name": "PlanEnhance",
+						"type": "String"
+					},
+					{
+						"name": "RepName1",
+						"type": "String"
+					},
+					{
+						"name": "RepName2",
+						"type": "String"
+					},
+					{
+						"name": "RepName3",
+						"type": "String"
+					},
+					{
+						"name": "ItemName1",
+						"type": "String"
+					},
+					{
+						"name": "ItemName2",
+						"type": "String"
+					},
+					{
+						"name": "ItemName3",
+						"type": "String"
+					},
+					{
+						"name": "ItemName4",
+						"type": "String"
+					},
+					{
+						"name": "ItemName5",
+						"type": "String"
+					},
+					{
+						"name": "ItemName6",
+						"type": "String"
+					},
+					{
+						"name": "ItemName7",
+						"type": "String"
+					},
+					{
+						"name": "ItemName8",
+						"type": "String"
+					},
+					{
+						"name": "ItemName9",
+						"type": "String"
+					},
+					{
+						"name": "ItemName10",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd1",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd2",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd3",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd4",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd5",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd6",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd7",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd8",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd9",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd10",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc1",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc2",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc3",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc4",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc5",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc6",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc7",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc8",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc9",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc10",
+						"type": "String"
+					},
+					{
+						"name": "ValueN01",
+						"type": "String"
+					},
+					{
+						"name": "ValueN02",
+						"type": "String"
+					},
+					{
+						"name": "ValueN03",
+						"type": "String"
+					},
+					{
+						"name": "ValueN04",
+						"type": "String"
+					},
+					{
+						"name": "ValueN05",
+						"type": "String"
+					},
+					{
+						"name": "ValueN06",
+						"type": "String"
+					},
+					{
+						"name": "ValueN07",
+						"type": "String"
+					},
+					{
+						"name": "ValueN08",
+						"type": "String"
+					},
+					{
+						"name": "ValueN09",
+						"type": "String"
+					},
+					{
+						"name": "ValueN10",
+						"type": "String"
+					},
+					{
+						"name": "ValueS01",
+						"type": "String"
+					},
+					{
+						"name": "ValueS02",
+						"type": "String"
+					},
+					{
+						"name": "ValueS03",
+						"type": "String"
+					},
+					{
+						"name": "ValueS04",
+						"type": "String"
+					},
+					{
+						"name": "ValueS05",
+						"type": "String"
+					},
+					{
+						"name": "Residual",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SzAzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/srTrueup_Results')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SzAzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "sz-container-out1"
+					},
+					"columnDelimiter": "\t",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SzAzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SzAzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "test blob",
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('SzAzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "in_TrueUpCalc_010",
+								"type": "DatasetReference"
+							},
+							"name": "inTrueUpCalc010",
+							"typeProperties": {}
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "srTrueup_Results",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "ItemOrdToInt"
+						},
+						{
+							"name": "TrueUpCalc020"
+						},
+						{
+							"name": "Unpivot1"
+						},
+						{
+							"name": "DerivedColumn1"
+						},
+						{
+							"name": "Pivot2"
+						}
+					],
+					"script": "\nparameters{\n\tParam_DataFlow1 as string ('Param_DataFlow1')\n}\nsource(output(\n\t\tValDate as string,\n\t\tUpdateGroup as string,\n\t\tGDSKey as string,\n\t\tCompareTo as string,\n\t\tSource1 as string,\n\t\tSource2 as string,\n\t\tSource3 as string,\n\t\tSource4 as string,\n\t\tApplication as string,\n\t\tGroupID as string,\n\t\tEntity as string,\n\t\tFundGroup as string,\n\t\tFund as string,\n\t\tSubFund as string,\n\t\tFundType as string,\n\t\tBasis as string,\n\t\tStressGroup as string,\n\t\tStressName as string,\n\t\tStressID as string,\n\t\tReinsLayer as string,\n\t\tCountry as string,\n\t\tProductGroup1 as string,\n\t\tProductGroup2 as string,\n\t\tPlanEnhance as string,\n\t\tRepName1 as string,\n\t\tRepName2 as string,\n\t\tRepName3 as string,\n\t\tItemName1 as string,\n\t\tItemName2 as string,\n\t\tItemName3 as string,\n\t\tItemName4 as string,\n\t\tItemName5 as string,\n\t\tItemName6 as string,\n\t\tItemName7 as string,\n\t\tItemName8 as string,\n\t\tItemName9 as string,\n\t\tItemName10 as string,\n\t\tItemOrd1 as string,\n\t\tItemOrd2 as string,\n\t\tItemOrd3 as string,\n\t\tItemOrd4 as string,\n\t\tItemOrd5 as string,\n\t\tItemOrd6 as string,\n\t\tItemOrd7 as string,\n\t\tItemOrd8 as string,\n\t\tItemOrd9 as string,\n\t\tItemOrd10 as string,\n\t\tItemDesc1 as string,\n\t\tItemDesc2 as string,\n\t\tItemDesc3 as string,\n\t\tItemDesc4 as string,\n\t\tItemDesc5 as string,\n\t\tItemDesc6 as string,\n\t\tItemDesc7 as string,\n\t\tItemDesc8 as string,\n\t\tItemDesc9 as string,\n\t\tItemDesc10 as string,\n\t\tValueN01 as string,\n\t\tValueN02 as string,\n\t\tValueN03 as string,\n\t\tValueN04 as string,\n\t\tValueN05 as string,\n\t\tValueN06 as string,\n\t\tValueN07 as string,\n\t\tValueN08 as string,\n\t\tValueN09 as string,\n\t\tValueN10 as string,\n\t\tValueS01 as string,\n\t\tValueS02 as string,\n\t\tValueS03 as string,\n\t\tValueS04 as string,\n\t\tValueS05 as string,\n\t\tResidual as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true,\n\tinferDriftedColumnTypes: true,\n\tdateFormats: ['dd/MM/yyyy'],\n\ttimestampFormats: ['yyyy.MM.dd HH:mm:ss'],\n\tpreferredIntegralType: 'integer',\n\tpreferredFractionalType: 'double') ~> inTrueUpCalc010\ninTrueUpCalc010 derive(ItemOrd1 = toInteger(ItemOrd1),\n\t\tItemOrd2 = toInteger(ItemOrd2),\n\t\tItemOrd3 = toInteger(ItemOrd3),\n\t\tValueN03 = toDouble(ValueN03),\n\t\tValueN04 = toDouble(ValueN04),\n\t\tResidual = toDouble(replace(Residual, ',', '')),\n\t\tValueN01 = toDouble(ValueN01),\n\t\tValueN02 = toDouble(ValueN02)) ~> ItemOrdToInt\nItemOrdToInt aggregate(groupBy(Application,\n\t\tBasis,\n\t\tFund),\n\tValueN03 = sum(ValueN03),\n\t\tValueN04 = avg(ValueN04),\n\t\tResidual = sum(Residual),\n\t\tMaxValueN01 = max(ValueN01),\n\t\tMinValueN02 = min(ValueN02),\n\t\tFirstItemOrd1 = first(ItemOrd1),\n\t\tLastItemOrd1 = last(ItemOrd1)) ~> TrueUpCalc020\nDerivedColumn1 unpivot(output(\n\t\tFund as string,\n\t\tResidual as double\n\t),\n\tungroupBy(Application,\n\t\tBasis),\n\tlateral: false,\n\tignoreNullPivots: true) ~> Unpivot1\nPivot2 derive(CIS = case(isNull(CIS), toDouble(0), CIS)) ~> DerivedColumn1\nTrueUpCalc020 pivot(groupBy(Application,\n\t\tBasis),\n\tpivotBy(Fund, ['PLAL', 'RLM', 'UFIB', 'NA', 'CIS']),\n\t{} = sum(Residual),\n\tcolumnNaming: '$N$V',\n\tlateral: false) ~> Pivot2\nUnpivot1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['outTrueUp'],\n\tpartitionBy('hash', 1)) ~> sink1"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/srTrueup_Results')]",
+				"[concat(variables('factoryId'), '/datasets/in_TrueUpCalc_010')]"
+			]
+		}
+	]
+}
