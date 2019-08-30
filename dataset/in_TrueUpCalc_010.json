@@ -5,6 +5,12 @@
 			"referenceName": "SzAzureBlobStorage1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"Param_DataSet1": {
+				"type": "string",
+				"defaultValue": "Param_DataSet1"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
