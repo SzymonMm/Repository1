@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "dataflow1",
+				"name": "dataflow",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,8 +16,16 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "dataflow1",
-						"type": "DataFlowReference"
+						"referenceName": "dataflow2",
+						"type": "DataFlowReference",
+						"parameters": {
+							"Param_DataFlow1": "'Param_DataFlow1'"
+						},
+						"datasetParameters": {
+							"inTrueUpCalc010": {
+								"Param_DataSet1": "Param_DataSet1"
+							}
+						}
 					}
 				}
 			}
