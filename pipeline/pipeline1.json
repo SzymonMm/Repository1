@@ -19,7 +19,7 @@
 						"referenceName": "dataflow2",
 						"type": "DataFlowReference",
 						"parameters": {
-							"Param_DataFlow1": "'Param_DataFlow1'"
+							"Param_Quant": "'Param_DataFlow1'"
 						},
 						"datasetParameters": {
 							"inTrueUpCalc010": {
