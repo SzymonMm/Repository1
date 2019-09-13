@@ -13,10 +13,9 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "dataflow2",
+						"referenceName": "srTrueUp",
 						"type": "DataFlowReference",
 						"parameters": {
 							"GDSKeyDF": {
