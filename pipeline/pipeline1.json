@@ -19,7 +19,10 @@
 						"referenceName": "dataflow2",
 						"type": "DataFlowReference",
 						"parameters": {
-							"GDSKey": "'Param_DataFlow1'"
+							"GDSKeyDF": {
+								"value": "'@{concat(@pipeline().DataFactory + ' ,' + pipeline().Pipeline)}'",
+								"type": "Expression"
+							}
 						},
 						"datasetParameters": {
 							"inTrueUpCalc010": {
