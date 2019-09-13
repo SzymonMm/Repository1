@@ -1,0 +1,454 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory Name"
+		},
+		"SzAzureBlobStorage1": {
+			"type": "string"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "dataflow",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow2",
+								"type": "DataFlowReference",
+								"parameters": {
+									"GDSKeyDF": {
+										"value": "'@{concat(@pipeline().DataFactory + ' ,' + pipeline().Pipeline)}'",
+										"type": "Expression"
+									}
+								},
+								"datasetParameters": {
+									"inTrueUpCalc010": {
+										"Param_DataSet1": "Param_DataSet1"
+									}
+								}
+							}
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/dataflow2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow2')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "in_TrueUpCalc_010",
+								"type": "DatasetReference"
+							},
+							"name": "inTrueUpCalc010"
+						}
+					],
+					"sinks": [],
+					"transformations": [
+						{
+							"name": "ItemOrdToInt"
+						},
+						{
+							"name": "TrueUpCalc020"
+						},
+						{
+							"name": "TrueUpCalc030"
+						},
+						{
+							"name": "DerivedColumn2"
+						},
+						{
+							"name": "TrueUpCalc110"
+						},
+						{
+							"name": "TrueUpCalc120"
+						},
+						{
+							"name": "Quantiles"
+						},
+						{
+							"name": "TrueUpCalc140"
+						},
+						{
+							"name": "TrueUpCalc150"
+						},
+						{
+							"name": "TrueUpCalc200"
+						},
+						{
+							"name": "TrueUpCalc205"
+						},
+						{
+							"name": "TrueUpCalc210"
+						},
+						{
+							"name": "TrueUpCalc220"
+						},
+						{
+							"name": "srTrueUp"
+						}
+					],
+					"script": "\nparameters{\n\tGDSKeyDF as string ('DECLARE test '+lower(GDSKey))\n}\nsource(output(\n\t\tValDate as string,\n\t\tUpdateGroup as string,\n\t\tGDSKey as string,\n\t\tCompareTo as string,\n\t\tSource1 as string,\n\t\tSource2 as string,\n\t\tSource3 as string,\n\t\tSource4 as string,\n\t\tApplication as string,\n\t\tGroupID as string,\n\t\tEntity as string,\n\t\tFundGroup as string,\n\t\tFund as string,\n\t\tSubFund as string,\n\t\tFundType as string,\n\t\tBasis as string,\n\t\tStressGroup as string,\n\t\tStressName as string,\n\t\tStressID as string,\n\t\tReinsLayer as string,\n\t\tCountry as string,\n\t\tProductGroup1 as string,\n\t\tProductGroup2 as string,\n\t\tPlanEnhance as string,\n\t\tRepName1 as string,\n\t\tRepName2 as string,\n\t\tRepName3 as string,\n\t\tItemName1 as string,\n\t\tItemName2 as string,\n\t\tItemName3 as string,\n\t\tItemName4 as string,\n\t\tItemName5 as string,\n\t\tItemName6 as string,\n\t\tItemName7 as string,\n\t\tItemName8 as string,\n\t\tItemName9 as string,\n\t\tItemName10 as string,\n\t\tItemOrd1 as string,\n\t\tItemOrd2 as string,\n\t\tItemOrd3 as string,\n\t\tItemOrd4 as string,\n\t\tItemOrd5 as string,\n\t\tItemOrd6 as string,\n\t\tItemOrd7 as string,\n\t\tItemOrd8 as string,\n\t\tItemOrd9 as string,\n\t\tItemOrd10 as string,\n\t\tItemDesc1 as string,\n\t\tItemDesc2 as string,\n\t\tItemDesc3 as string,\n\t\tItemDesc4 as string,\n\t\tItemDesc5 as string,\n\t\tItemDesc6 as string,\n\t\tItemDesc7 as string,\n\t\tItemDesc8 as string,\n\t\tItemDesc9 as string,\n\t\tItemDesc10 as string,\n\t\tValueN01 as string,\n\t\tValueN02 as string,\n\t\tValueN03 as string,\n\t\tValueN04 as string,\n\t\tValueN05 as string,\n\t\tValueN06 as string,\n\t\tValueN07 as string,\n\t\tValueN08 as string,\n\t\tValueN09 as string,\n\t\tValueN10 as string,\n\t\tValueS01 as string,\n\t\tValueS02 as string,\n\t\tValueS03 as string,\n\t\tValueS04 as string,\n\t\tValueS05 as string,\n\t\tResidual as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true,\n\tinferDriftedColumnTypes: true,\n\tdateFormats: ['dd/MM/yyyy'],\n\ttimestampFormats: ['yyyy.MM.dd HH:mm:ss'],\n\tpreferredIntegralType: 'integer',\n\tpreferredFractionalType: 'double') ~> inTrueUpCalc010\ninTrueUpCalc010 derive(ItemOrd1 = toInteger(ItemOrd1),\n\t\tItemOrd2 = toInteger(ItemOrd2),\n\t\tItemOrd3 = toInteger(ItemOrd3),\n\t\tValueN03 = toDouble(ValueN03),\n\t\tValueN04 = toDouble(ValueN04),\n\t\tResidual = toDouble(replace(Residual, ',', '')),\n\t\tValueN01 = toDouble(ValueN01),\n\t\tValueN02 = toDouble(ValueN02)) ~> ItemOrdToInt\nItemOrdToInt aggregate(groupBy(Application,\n\t\tBasis,\n\t\tFund),\n\tTotalWeight = sum(ValueN03),\n\t\tPreTrueSCR = avg(ValueN04),\n\t\tTotalResidual = sum(Residual),\n\t\tMaxValueN01 = max(ValueN01),\n\t\tMinValueN02 = min(ValueN02),\n\t\tFirstItemOrd1 = first(ItemOrd1),\n\t\tLastItemOrd1 = last(ItemOrd1)) ~> TrueUpCalc020\nTrueUpCalc020 derive(BasicTrueUp = TotalResidual/TotalWeight,\n\t\tRAG = (TotalResidual / TotalWeight) / PreTrueSCR,\n\t\tNegativeCap = -0.025 * PreTrueSCR) ~> TrueUpCalc030\ninTrueUpCalc010 derive(Residual = toDouble(replace(Residual, ',', ''))) ~> DerivedColumn2\nDerivedColumn2 window(over(Application,\n\t\tBasis,\n\t\tFund),\n\tasc(ValDate, true),\n\tasc(UpdateGroup, true),\n\tasc(GDSKey, true),\n\tasc(CompareTo, true),\n\tasc(Source1, true),\n\tasc(Source2, true),\n\tasc(Source3, true),\n\tasc(Source4, true),\n\tasc(Application, true),\n\tasc(GroupID, true),\n\tasc(Entity, true),\n\tasc(FundGroup, true),\n\tasc(Fund, true),\n\tasc(SubFund, true),\n\tasc(FundType, true),\n\tasc(Basis, true),\n\tasc(StressGroup, true),\n\tasc(StressName, true),\n\tasc(StressID, true),\n\tasc(ReinsLayer, true),\n\tasc(Country, true),\n\tasc(ProductGroup1, true),\n\tasc(ProductGroup2, true),\n\tasc(PlanEnhance, true),\n\tRank = rowNumber()) ~> TrueUpCalc110\nTrueUpCalc110 filter(in([101, 151, 251, 301], Rank)) ~> TrueUpCalc120\nTrueUpCalc120 derive(Quantile = case(Rank == 101, 'q25', (case(Rank== 151,'q37_5',case(Rank==251, 'q62_5', case(Rank==301,'q75','na')))))) ~> Quantiles\nQuantiles pivot(groupBy(ValDate,\n\t\tUpdateGroup,\n\t\tGDSKey,\n\t\tCompareTo,\n\t\tSource1,\n\t\tSource2,\n\t\tSource3,\n\t\tSource4,\n\t\tApplication,\n\t\tGroupID,\n\t\tEntity,\n\t\tFundGroup,\n\t\tFund,\n\t\tSubFund,\n\t\tFundType,\n\t\tBasis,\n\t\tStressGroup,\n\t\tStressName,\n\t\tStressID,\n\t\tReinsLayer,\n\t\tCountry,\n\t\tProductGroup1,\n\t\tProductGroup2,\n\t\tPlanEnhance,\n\t\tRepName1,\n\t\tRepName2,\n\t\tRepName3,\n\t\tItemName1,\n\t\tItemName2,\n\t\tItemName3,\n\t\tItemName4,\n\t\tItemName5,\n\t\tItemName6,\n\t\tItemName7,\n\t\tItemName8,\n\t\tItemName9,\n\t\tItemName10,\n\t\tItemOrd1,\n\t\tItemOrd2,\n\t\tItemOrd3,\n\t\tItemOrd4,\n\t\tItemOrd5,\n\t\tItemOrd6,\n\t\tItemOrd7,\n\t\tItemOrd8,\n\t\tItemOrd9,\n\t\tItemOrd10,\n\t\tItemDesc1,\n\t\tItemDesc2,\n\t\tItemDesc3,\n\t\tItemDesc4,\n\t\tItemDesc5,\n\t\tItemDesc6,\n\t\tItemDesc7,\n\t\tItemDesc8,\n\t\tItemDesc9,\n\t\tItemDesc10),\n\tpivotBy(Quantile, ['q25', 'q37_5', 'q62_5', 'q75']),\n\t{} = iifNull(sum(Residual),toDouble(0)),\n\tcolumnNaming: '$N$V',\n\tlateral: false) ~> TrueUpCalc140\nTrueUpCalc140 derive(MaxPct1 = iifNull(case(q37_5 > q62_5, q37_5, q62_5), toDouble(0)),\n\t\tMaxPct2 = iifNull(case(q25 > q75,q25, q75), toDouble(0))) ~> TrueUpCalc150\nTrueUpCalc030, TrueUpCalc150 join(TrueUpCalc020@Application == TrueUpCalc140@Application\n\t&& TrueUpCalc020@Basis == TrueUpCalc140@Basis\n\t&& TrueUpCalc020@Fund == TrueUpCalc140@Fund,\n\tjoinType:'inner',\n\tbroadcast: 'none')~> TrueUpCalc200\nTrueUpCalc200 select(mapColumn(\n\t\tTotalWeight,\n\t\tPreTrueSCR,\n\t\tTotalResidual,\n\t\tMaxValueN01,\n\t\tMinValueN02,\n\t\tBasicTrueUp,\n\t\tRAG,\n\t\tNegativeCap,\n\t\tValDate,\n\t\tUpdateGroup,\n\t\tGDSKey,\n\t\tCompareTo,\n\t\tSource1,\n\t\tSource2,\n\t\tSource3,\n\t\tSource4,\n\t\tApplication = TrueUpCalc140@Application,\n\t\tGroupID,\n\t\tEntity,\n\t\tFundGroup,\n\t\tFund = TrueUpCalc140@Fund,\n\t\tSubFund,\n\t\tFundType,\n\t\tBasis = TrueUpCalc140@Basis,\n\t\tStressGroup,\n\t\tStressName,\n\t\tStressID,\n\t\tReinsLayer,\n\t\tCountry,\n\t\tProductGroup1,\n\t\tProductGroup2,\n\t\tPlanEnhance,\n\t\tRepName1,\n\t\tRepName2,\n\t\tRepName3,\n\t\tItemName1,\n\t\tItemName2,\n\t\tItemName3,\n\t\tItemName4,\n\t\tItemName5,\n\t\tItemName6,\n\t\tItemName7,\n\t\tItemName8,\n\t\tItemName9,\n\t\tItemName10,\n\t\tItemOrd1,\n\t\tItemOrd2,\n\t\tItemOrd3,\n\t\tItemOrd4,\n\t\tItemOrd5,\n\t\tItemOrd6,\n\t\tItemOrd7,\n\t\tItemOrd8,\n\t\tItemOrd9,\n\t\tItemOrd10,\n\t\tItemDesc1,\n\t\tItemDesc2,\n\t\tItemDesc3,\n\t\tItemDesc4,\n\t\tItemDesc5,\n\t\tItemDesc6,\n\t\tItemDesc7,\n\t\tItemDesc8,\n\t\tItemDesc9,\n\t\tItemDesc10,\n\t\tq25,\n\t\tq37_5,\n\t\tq62_5,\n\t\tq75,\n\t\tMaxPct1,\n\t\tMaxPct2\n\t)) ~> TrueUpCalc205\nTrueUpCalc205 derive(PreCapTrueUp = case(RAG < 0.025, BasicTrueUp,case(RAG < 0.05, MaxPct1, MaxPct2)),\n\t\tFinalTrueUp = greatest(case(RAG < 0.025, BasicTrueUp,case(RAG < 0.05, MaxPct1, MaxPct2)), NegativeCap)) ~> TrueUpCalc210\nTrueUpCalc210 unpivot(output(\n\t\tItemname1 as string,\n\t\tValueN01 as double\n\t),\n\tungroupBy(ValDate,\n\t\tUpdateGroup,\n\t\tGDSKey,\n\t\tCompareTo,\n\t\tSource1,\n\t\tSource2,\n\t\tSource3,\n\t\tSource4,\n\t\tApplication,\n\t\tGroupID,\n\t\tEntity,\n\t\tFundGroup,\n\t\tFund,\n\t\tSubFund,\n\t\tFundType,\n\t\tBasis,\n\t\tStressGroup,\n\t\tStressName,\n\t\tStressID,\n\t\tReinsLayer,\n\t\tCountry,\n\t\tProductGroup1,\n\t\tProductGroup2,\n\t\tPlanEnhance,\n\t\tRepName1,\n\t\tRepName2,\n\t\tRepName3,\n\t\tItemName1,\n\t\tItemName2,\n\t\tItemName3,\n\t\tItemName4,\n\t\tItemName5,\n\t\tItemName6,\n\t\tItemName7,\n\t\tItemName8,\n\t\tItemName9,\n\t\tItemName10,\n\t\tItemOrd1,\n\t\tItemOrd2,\n\t\tItemOrd3,\n\t\tItemOrd4,\n\t\tItemOrd5,\n\t\tItemOrd6,\n\t\tItemOrd7,\n\t\tItemOrd8,\n\t\tItemOrd9,\n\t\tItemOrd10,\n\t\tItemDesc1,\n\t\tItemDesc2,\n\t\tItemDesc3,\n\t\tItemDesc4,\n\t\tItemDesc5,\n\t\tItemDesc6,\n\t\tItemDesc7,\n\t\tItemDesc8,\n\t\tItemDesc9,\n\t\tItemDesc10),\n\tlateral: false,\n\tignoreNullPivots: false) ~> TrueUpCalc220\nTrueUpCalc220 derive(ValDate = upper(iifNull(ValDate, 'NA')),\n\t\tUpdateGroup = upper(iifNull(Fund, 'NA')),\n\t\tGDSKey = $GDSKeyDF + ' It Works',\n\t\tCompareTo = 'CURRENT',\n\t\tSource1 = 'NA',\n\t\tSource2 = 'NA',\n\t\tSource3 = 'NA',\n\t\tSource4 = '21_CALCTRUEUP',\n\t\tApplication = upper(iifNull(Application, 'NA')),\n\t\tGroupID = upper(iifNull(GroupID, 'NA')),\n\t\tEntity = upper(iifNull(Entity, 'NA')),\n\t\tFundGroup = upper(iifNull(FundGroup, 'NA')),\n\t\tFund = upper(iifNull(Fund, 'NA')),\n\t\tSubFund = 'NA',\n\t\tFundType = 'NA',\n\t\tBasis = 'NA',\n\t\tStressGroup = 'NA',\n\t\tStressName = 'NA',\n\t\tStressID = 'NA',\n\t\tReinsLayer = 'NA',\n\t\tCountry = 'NA',\n\t\tProductGroup1 = 'NA',\n\t\tProductGroup2 = 'NA',\n\t\tPlanEnhance = 'NA',\n\t\tRepName1 = 'TRUEUP',\n\t\tRepName2 = 'RESULTS',\n\t\tRepName3 = 'NA',\n\t\tItemName1 = upper(iifNull(TrueUpCalc220@ItemName1, 'NA')),\n\t\tItemName2 = 'NA',\n\t\tItemName3 = 'NA',\n\t\tItemName4 = 'NA',\n\t\tItemName5 = 'NA',\n\t\tItemName6 = 'NA',\n\t\tItemName7 = 'NA',\n\t\tItemName8 = 'NA',\n\t\tItemName9 = 'NA',\n\t\tItemName10 = 'NA',\n\t\tItemOrd1 = upper(iifNull(ItemOrd1, 'NA')),\n\t\tItemOrd2 = 0,\n\t\tItemOrd3 = 0,\n\t\tItemOrd4 = 0,\n\t\tItemOrd5 = 0,\n\t\tItemOrd6 = 0,\n\t\tItemOrd7 = 0,\n\t\tItemOrd8 = 0,\n\t\tItemOrd9 = 0,\n\t\tItemOrd10 = 0,\n\t\tItemDesc1 = upper(iifNull(TrueUpCalc220@ItemName1, 'NA')),\n\t\tItemDesc2 = 'NA',\n\t\tItemDesc3 = 'NA',\n\t\tItemDesc4 = 'NA',\n\t\tItemDesc5 = 'NA',\n\t\tItemDesc6 = 'NA',\n\t\tItemDesc7 = 'NA',\n\t\tItemDesc8 = 'NA',\n\t\tItemDesc9 = 'NA',\n\t\tItemDesc10 = 'NA',\n\t\tValueN01 = iifNull(ValueN01, 0.0)) ~> srTrueUp"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/in_TrueUpCalc_010')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/in_TrueUpCalc_010')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "[parameters('SzAzureBlobStorage1')]",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Param_DataSet1": {
+						"type": "string",
+						"defaultValue": "Param_DataSet1"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "sm_TrueUpCalc_010.txt",
+						"container": "sz-blob1"
+					},
+					"columnDelimiter": "\t",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "ValDate",
+						"type": "String"
+					},
+					{
+						"name": "UpdateGroup",
+						"type": "String"
+					},
+					{
+						"name": "GDSKey",
+						"type": "String"
+					},
+					{
+						"name": "CompareTo",
+						"type": "String"
+					},
+					{
+						"name": "Source1",
+						"type": "String"
+					},
+					{
+						"name": "Source2",
+						"type": "String"
+					},
+					{
+						"name": "Source3",
+						"type": "String"
+					},
+					{
+						"name": "Source4",
+						"type": "String"
+					},
+					{
+						"name": "Application",
+						"type": "String"
+					},
+					{
+						"name": "GroupID",
+						"type": "String"
+					},
+					{
+						"name": "Entity",
+						"type": "String"
+					},
+					{
+						"name": "FundGroup",
+						"type": "String"
+					},
+					{
+						"name": "Fund",
+						"type": "String"
+					},
+					{
+						"name": "SubFund",
+						"type": "String"
+					},
+					{
+						"name": "FundType",
+						"type": "String"
+					},
+					{
+						"name": "Basis",
+						"type": "String"
+					},
+					{
+						"name": "StressGroup",
+						"type": "String"
+					},
+					{
+						"name": "StressName",
+						"type": "String"
+					},
+					{
+						"name": "StressID",
+						"type": "String"
+					},
+					{
+						"name": "ReinsLayer",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "ProductGroup1",
+						"type": "String"
+					},
+					{
+						"name": "ProductGroup2",
+						"type": "String"
+					},
+					{
+						"name": "PlanEnhance",
+						"type": "String"
+					},
+					{
+						"name": "RepName1",
+						"type": "String"
+					},
+					{
+						"name": "RepName2",
+						"type": "String"
+					},
+					{
+						"name": "RepName3",
+						"type": "String"
+					},
+					{
+						"name": "ItemName1",
+						"type": "String"
+					},
+					{
+						"name": "ItemName2",
+						"type": "String"
+					},
+					{
+						"name": "ItemName3",
+						"type": "String"
+					},
+					{
+						"name": "ItemName4",
+						"type": "String"
+					},
+					{
+						"name": "ItemName5",
+						"type": "String"
+					},
+					{
+						"name": "ItemName6",
+						"type": "String"
+					},
+					{
+						"name": "ItemName7",
+						"type": "String"
+					},
+					{
+						"name": "ItemName8",
+						"type": "String"
+					},
+					{
+						"name": "ItemName9",
+						"type": "String"
+					},
+					{
+						"name": "ItemName10",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd1",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd2",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd3",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd4",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd5",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd6",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd7",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd8",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd9",
+						"type": "String"
+					},
+					{
+						"name": "ItemOrd10",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc1",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc2",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc3",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc4",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc5",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc6",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc7",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc8",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc9",
+						"type": "String"
+					},
+					{
+						"name": "ItemDesc10",
+						"type": "String"
+					},
+					{
+						"name": "ValueN01",
+						"type": "String"
+					},
+					{
+						"name": "ValueN02",
+						"type": "String"
+					},
+					{
+						"name": "ValueN03",
+						"type": "String"
+					},
+					{
+						"name": "ValueN04",
+						"type": "String"
+					},
+					{
+						"name": "ValueN05",
+						"type": "String"
+					},
+					{
+						"name": "ValueN06",
+						"type": "String"
+					},
+					{
+						"name": "ValueN07",
+						"type": "String"
+					},
+					{
+						"name": "ValueN08",
+						"type": "String"
+					},
+					{
+						"name": "ValueN09",
+						"type": "String"
+					},
+					{
+						"name": "ValueN10",
+						"type": "String"
+					},
+					{
+						"name": "ValueS01",
+						"type": "String"
+					},
+					{
+						"name": "ValueS02",
+						"type": "String"
+					},
+					{
+						"name": "ValueS03",
+						"type": "String"
+					},
+					{
+						"name": "ValueS04",
+						"type": "String"
+					},
+					{
+						"name": "ValueS05",
+						"type": "String"
+					},
+					{
+						"name": "Residual",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		}
+	]
+}
