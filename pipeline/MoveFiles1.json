@@ -185,6 +185,12 @@
 				"defaultValue": "/<myfolder>/<subfolder>/"
 			}
 		},
+		"variables": {
+			"PPVariable1": {
+				"type": "String",
+				"defaultValue": "PPVariable1"
+			}
+		},
 		"annotations": []
 	}
 }
