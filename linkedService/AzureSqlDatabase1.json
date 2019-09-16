@@ -1,0 +1,11 @@
+{
+	"name": "AzureSqlDatabase1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=idminternal02-af30f09232864a099642666040e3ea46.database.windows.net;Initial Catalog=D0B78D4EB9273734A66F8AFE8A89DE1FDB470BFE4"
+		}
+	}
+}
