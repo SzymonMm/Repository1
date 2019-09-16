@@ -21,7 +21,14 @@
 			{
 				"name": "dataflow1",
 				"type": "ExecuteDataFlow",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Copy Data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -41,7 +48,14 @@
 				"name": "CustomBatch",
 				"description": "Batch service",
 				"type": "Custom",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "dataflow1",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -61,7 +75,14 @@
 				"name": "Notebook DataBricks",
 				"description": "java, R, python",
 				"type": "DatabricksNotebook",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "CustomBatch",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -81,7 +102,14 @@
 			{
 				"name": "Jar DataBricks",
 				"type": "DatabricksSparkJar",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Notebook DataBricks",
+						"dependencyConditions": [
+							"Skipped"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
